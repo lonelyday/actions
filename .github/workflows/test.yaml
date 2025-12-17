@@ -1,0 +1,22 @@
+name: Build Go Project
+
+on: [push]  # Uruchamia się przy każdym pushu
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: 'go.mod'  # Odczytuje wersję z go.mod (lub podaj ręcznie, np. '1.22')
+
+      - name: Build project
+        run: go build ./...  # Buduje wszystkie pakiety; dostosuj jeśli potrzeba (np. go build -o myapp cmd/main.go)
+
+      - name: Test project (opcjonalnie)
+        run: go test ./...  # Jeśli masz testy, dodaj to
